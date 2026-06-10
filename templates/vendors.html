@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Exchange Vendors | Bridgr{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="bg-primary-container text-white py-xl px-lg">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="font-headline-lg text-headline-lg mb-md">Exchange Vendors</h1>
+        <p class="font-body-md text-white/80">Verified vendors offering competitive rates</p>
+    </div>
+</section>
+
+<!-- Filters -->
+<section class="py-lg px-lg border-b border-outline-variant sticky top-20 bg-white">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex gap-md flex-wrap">
+            <a href="?pair=GBP_NGN" class="px-md py-sm rounded-full text-label-md font-label-md transition-colors {% if selected_pair == 'GBP_NGN' %}bg-secondary text-white{% else %}bg-surface-container text-on-surface hover:bg-surface-container-high{% endif %}">
+                GBP → NGN
+            </a>
+            <a href="?pair=USD_NGN" class="px-md py-sm rounded-full text-label-md font-label-md transition-colors {% if selected_pair == 'USD_NGN' %}bg-secondary text-white{% else %}bg-surface-container text-on-surface hover:bg-surface-container-high{% endif %}">
+                USD → NGN
+            </a>
+            <a href="?pair=GBP_GHS" class="px-md py-sm rounded-full text-label-md font-label-md transition-colors {% if selected_pair == 'GBP_GHS' %}bg-secondary text-white{% else %}bg-surface-container text-on-surface hover:bg-surface-container-high{% endif %}">
+                GBP → GHS
+            </a>
+            <a href="?pair=USD_GHS" class="px-md py-sm rounded-full text-label-md font-label-md transition-colors {% if selected_pair == 'USD_GHS' %}bg-secondary text-white{% else %}bg-surface-container text-on-surface hover:bg-surface-container-high{% endif %}">
+                USD → GHS
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Vendors Grid -->
+<section class="py-xxl px-lg max-w-7xl mx-auto">
+    {% if vendors %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-xl">
+            {% for vendor in vendors %}
+                <div class="tonal-layer-1 rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
+                    <div class="p-lg">
+                        <div class="flex items-start justify-between mb-md">
+                            <div>
+                                <h3 class="font-headline-md text-headline-md">{{ vendor.business_name }}</h3>
+                                <p class="font-body-sm text-on-surface-variant">{{ vendor.location }}</p>
+                            </div>
+                            {% if vendor.is_verified %}
+                                <span class="bg-secondary text-white px-md py-sm rounded-full text-label-sm font-label-md flex items-center gap-sm">
+                                    <span class="material-symbols-outlined text-sm">verified</span>
+                                    Verified
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <p class="font-body-sm text-on-surface-variant mb-lg">{{ vendor.description }}</p>
+
+                        <!-- Rates Table -->
+                        <div class="border-t border-outline-variant pt-lg">
+                            <table class="w-full text-label-md">
+                                <thead>
+                                    <tr class="text-on-surface-variant">
+                                        <th class="text-left pb-sm">Rate</th>
+                                        <th class="text-right pb-sm">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-outline-variant">
+                                    {% for rate in vendor.rates.all %}
+                                        <tr>
+                                            <td class="py-md">{{ rate.get_currency_pair_display }}</td>
+                                            <td class="py-md text-right font-headline-md text-secondary">{{ rate.rate }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <a href="{% url 'send_step1' %}" class="btn-secondary w-full mt-lg text-center block text-label-md py-sm">
+                            Send Money
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center py-xxl">
+            <div class="w-20 h-20 bg-surface-container rounded-full flex items-center justify-center mx-auto mb-lg">
+                <span class="material-symbols-outlined text-4xl text-on-surface-variant">inbox</span>
+            </div>
+            <h3 class="font-headline-md text-headline-md mb-md">No vendors found</h3>
+            <p class="font-body-md text-on-surface-variant mb-lg">No vendors are currently offering rates for this corridor.</p>
+            <a href="/vendors/" class="text-secondary font-label-md hover:underline">Try a different pair</a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

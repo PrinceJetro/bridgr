@@ -1,0 +1,64 @@
+<aside class="hidden md:flex flex-col w-64 bg-surface-container-low py-lg px-md gap-sm border-r border-outline-variant shrink-0">
+    <div class="flex flex-col gap-xs mb-xl">
+        <a href="{% url 'home' %}" class="flex items-center gap-sm">
+            <div class="w-10 h-10 bg-primary flex items-center justify-center rounded-lg">
+                <span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">toll</span>
+            </div>
+            <h1 class="font-headline-md font-extrabold text-primary">Bridgr</h1>
+        </a>
+        <div class="px-xs">
+            <p class="font-label-md font-bold text-on-surface">Dashboard</p>
+            <p class="text-xs text-on-surface-variant">Manage your transfers</p>
+        </div>
+    </div>
+
+    <nav class="flex flex-col gap-sm flex-grow">
+        <a href="{% url 'dashboard' %}" class="flex items-center gap-md rounded-lg px-md py-sm transition-all {% if active_nav == 'dashboard' %}bg-secondary-container text-on-secondary-container{% else %}text-on-surface-variant hover:bg-surface-container-high{% endif %}">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span class="font-label-md">Overview</span>
+        </a>
+        <a href="{% url 'history' %}" class="flex items-center gap-md rounded-lg px-md py-sm transition-all {% if active_nav == 'history' %}bg-secondary-container text-on-secondary-container{% else %}text-on-surface-variant hover:bg-surface-container-high{% endif %}">
+            <span class="material-symbols-outlined">receipt_long</span>
+            <span class="font-label-md">Transactions</span>
+        </a>
+        <a href="{% url 'send_step1' %}" class="flex items-center gap-md rounded-lg px-md py-sm transition-all {% if active_nav == 'send' %}bg-secondary-container text-on-secondary-container{% else %}text-on-surface-variant hover:bg-surface-container-high{% endif %}">
+            <span class="material-symbols-outlined">send</span>
+            <span class="font-label-md">Send Money</span>
+        </a>
+        <a href="{% url 'institutions' %}" class="flex items-center gap-md rounded-lg px-md py-sm transition-all text-on-surface-variant hover:bg-surface-container-high">
+            <span class="material-symbols-outlined">account_balance</span>
+            <span class="font-label-md">Institutions</span>
+        </a>
+        <a href="{% url 'vendors' %}" class="flex items-center gap-md rounded-lg px-md py-sm transition-all text-on-surface-variant hover:bg-surface-container-high">
+            <span class="material-symbols-outlined">storefront</span>
+            <span class="font-label-md">Vendors</span>
+        </a>
+        <a href="{% url 'notifications' %}" class="flex items-center gap-md rounded-lg px-md py-sm transition-all {% if active_nav == 'notifications' %}bg-secondary-container text-on-secondary-container{% else %}text-on-surface-variant hover:bg-surface-container-high{% endif %}">
+            <span class="material-symbols-outlined">notifications</span>
+            <span class="font-label-md">Notifications</span>
+            {% if unread_count %}<span class="ml-auto text-xs bg-error text-white px-2 py-0.5 rounded-full">{{ unread_count }}</span>{% endif %}
+        </a>
+        <a href="{% url 'profile' %}" class="flex items-center gap-md rounded-lg px-md py-sm transition-all {% if active_nav == 'profile' %}bg-secondary-container text-on-secondary-container{% else %}text-on-surface-variant hover:bg-surface-container-high{% endif %}">
+            <span class="material-symbols-outlined">settings</span>
+            <span class="font-label-md">Settings</span>
+        </a>
+    </nav>
+
+    <div class="mt-auto p-md bg-surface rounded-xl border border-outline-variant">
+        <a href="{% url 'profile' %}" class="flex items-center gap-sm">
+            {% if user.avatar %}
+                <img alt="{{ display_name|default:user.username }}" class="w-10 h-10 rounded-full border-2 border-secondary-container object-cover" src="{{ user.avatar.url }}" />
+            {% else %}
+                <div class="w-10 h-10 rounded-full border-2 border-secondary-container bg-secondary text-white flex items-center justify-center font-bold">
+                    {{ user.username|first|upper }}
+                </div>
+            {% endif %}
+            <div class="overflow-hidden">
+                <p class="text-label-md font-bold truncate text-on-surface">{{ display_name|default:user.username }}</p>
+                <p class="text-[10px] text-on-surface-variant truncate">
+                    {% if user.is_email_verified %}Verified account{% else %}Email not verified{% endif %}
+                </p>
+            </div>
+        </a>
+    </div>
+</aside>

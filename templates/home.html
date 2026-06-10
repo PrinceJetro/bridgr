@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bridgr | Cross-Border Payments That Make Sense</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "background": "#f8f9ff",
+                    "surface-dim": "#cbdbf5",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "on-secondary-fixed-variant": "#005145",
+                    "inverse-on-surface": "#eaf1ff",
+                    "primary-fixed-dim": "#b9c7e4",
+                    "surface": "#f8f9ff",
+                    "surface-bright": "#f8f9ff",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "on-surface-variant": "#44474d",
+                    "outline": "#75777e",
+                    "on-tertiary-fixed": "#002113",
+                    "primary": "#000000",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#dce9ff",
+                    "surface-tint": "#515f78",
+                    "tertiary": "#000000",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container": "#e5eeff",
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#c5c6cd",
+                    "surface-container-low": "#eff4ff",
+                    "on-secondary-container": "#007261",
+                    "secondary": "#006b5c",
+                    "inverse-surface": "#213145",
+                    "on-secondary-fixed": "#00201a",
+                    "tertiary-container": "#002113",
+                    "primary-container": "#0d1c32",
+                    "on-background": "#0b1c30",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-tertiary-container": "#009668",
+                    "primary-fixed": "#d6e3ff",
+                    "surface-variant": "#d3e4fe",
+                    "on-primary-container": "#76849f",
+                    "on-primary-fixed": "#0d1c32",
+                    "secondary-fixed-dim": "#44ddc1",
+                    "inverse-primary": "#b9c7e4",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed-variant": "#39475f",
+                    "secondary-fixed": "#68fadd",
+                    "on-surface": "#0b1c30",
+                    "tertiary-fixed": "#6ffbbe",
+                    "secondary-container": "#68fadd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "container-margin": "24px",
+                    "xxl": "48px",
+                    "sm": "12px",
+                    "xs": "4px",
+                    "gutter": "16px",
+                    "lg": "24px",
+                    "xl": "32px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-layer-1 {
+            background-color: #ffffff;
+            border: 1px solid #E2E8F0;
+        }
+        .tonal-layer-2 {
+            background-color: #ffffff;
+            box-shadow: 0px 4px 12px rgba(10, 25, 47, 0.05);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md">
+<!-- TopNavBar -->
+<nav class="bg-surface sticky top-0 z-50 border-b border-outline-variant">
+<div class="flex justify-between items-center w-full px-lg py-md max-w-7xl mx-auto">
+<div class="font-display-lg text-display-lg font-bold text-primary">Bridgr</div>
+<div class="hidden md:flex items-center gap-xl">
+<a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1 hover:text-secondary transition-colors" href="/how-it-works/">How it Works</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="/vendors/">Marketplace</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="/dashboard/">Dashboard</a>
+</div>
+<div class="flex items-center gap-md">
+<a href="/send/" class="bg-primary-container text-white px-lg py-sm rounded-lg font-label-md hover:opacity-80 transition-opacity inline-block">
+                    Send Money
+                </a>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARuwreWxrRqIgDnATb5ElrWBcXDZTyyya_7Q2PAzRIDPrcQlpeTXC8C8P1_w-oSiirJ7E6UBxJZR7B3WFcGXZVKC3XGudJCC-VemFtsCqdxGo3yozvX2y5DzdPaeMLRvu9dia3fnOlzkhyEFNus1jmrn1c_YkQxQ73l73B0cAm3G84nzBM-T2Hue87TsSLoEAg_kHjTrIEyom0EwHP3NMrkfFAP9xVhNX_wTXDbLhlGDKgOiSMC5fOkahyOctXlH9rrM3S1mHx59A6"/>
+</div>
+</div>
+</div>
+</nav>
+<main>
+<!-- Hero Section -->
+<section class="relative overflow-hidden pt-xxl pb-xxl px-lg bg-surface-container-low">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
+<div class="z-10">
+<span class="inline-block px-md py-xs bg-secondary-container text-on-secondary-container rounded-full font-label-sm mb-md">REVOLUTIONIZING REMITTANCE</span>
+<h1 class="font-display-lg text-display-lg lg:text-[64px] lg:leading-[72px] text-primary-container mb-md">
+                        Cross-Border Payments That <span class="text-secondary">Make Sense.</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-primary-container mb-xl max-w-xl">
+                        Send capital directly to institutions or loved ones with absolute transparency. No hidden markups, just the fair market rate you deserve.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-md">
+<a href="/register/" class="bg-primary-container text-white px-xl py-md rounded-xl font-label-md flex items-center justify-center gap-sm hover:translate-y-[-2px] transition-all inline-flex">
+                            Get Started Now <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+<a href="/how-it-works/" class="bg-white border border-outline-variant text-primary-container px-xl py-md rounded-xl font-label-md flex items-center justify-center gap-sm hover:bg-surface-container-high transition-all inline-flex">
+<span class="material-symbols-outlined">play_circle</span> Watch How it Works
+                        </a>
+</div>
+</div>
+<!-- Calculator Widget -->
+<div class="z-10 relative lg:ml-auto w-full max-w-md">
+<div class="tonal-layer-2 rounded-xxl p-xl border border-outline-variant">
+<h3 class="font-headline-md text-headline-md text-primary-container mb-lg">Rate Calculator</h3>
+<div class="space-y-lg">
+<div class="relative">
+<label class="block font-label-md text-on-surface-variant mb-xs">You send</label>
+<div class="flex items-center border border-outline-variant rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-secondary/20 transition-all">
+<input class="w-full border-none focus:ring-0 px-md py-md font-headline-md" type="number" value="1000"/>
+<div class="bg-surface-container-high px-md py-md flex items-center gap-xs font-label-md border-l border-outline-variant">
+<img alt="UK Flag" class="w-6 h-4 object-cover rounded-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-o1cQAK7BYeBF2zVNbethe2lU3IwPwTk4hWps7mBXSXHFqFazCYJ7h3qIzI_fog_WnQzQ-kCOkRPg_6QY3_EMaVUHyAV28ousB1awl_FRnghNKuDL4JI2VSVbeUOQkU87kyUiTdyKmIqiaXB5TzdFZ_OvUn1azz4JopolUP92vDUKovMHOdgObwPGoY6FMdgNvcyMKhogT42FUo2uL6oiSJTIWK1Q2xoX9lNSloYMlKS6dyuyavG4mahNYPPqvvjNhmIJIEZxrPsz"/>
+                                        GBP
+                                    </div>
+</div>
+</div>
+<div class="flex flex-col gap-sm py-md border-l-2 border-dashed border-secondary ml-md pl-md">
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant">Fee (0.5%)</span>
+<span class="font-bold text-primary">5.00 GBP</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant">Exchange Rate</span>
+<span class="font-bold text-secondary">1 GBP = 1,942.50 NGN</span>
+</div>
+</div>
+<div class="relative">
+<label class="block font-label-md text-on-surface-variant mb-xs">Recipient gets</label>
+<div class="flex items-center border border-outline-variant rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-secondary/20 transition-all">
+<input class="w-full border-none bg-surface-container-low px-md py-md font-headline-md" disabled="" type="number" value="1932787.50"/>
+<div class="bg-surface-container-high px-md py-md flex items-center gap-xs font-label-md border-l border-outline-variant">
+<img alt="Nigeria Flag" class="w-6 h-4 object-cover rounded-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn2UKI8VyNcZrdc2AkNb50CSSA13qi4JrFBYOKlLCYER51EVVXLmVlLjjl1boNpnAHfImCe61wQNo1EpC7TKfgeb0XsnR9Fiz_BwhYIb3ekY2r21h_z1isYL6yJXPDXllyHzHMPMF6vimvNiJtCVpgk5uPNp_FDfUz3V4gMIbBiWDUCQmzhtcBLM2JPSwU4pRYUFqfGGZ_CkByWaLaxNVX_j_bdVqmS4xHx_JestAQ-0lyPdgpx7s4M7Xi0QsQnLerDxhf1BaQg1zm"/>
+                                        NGN
+                                    </div>
+</div>
+</div>
+<a href="/send/" class="w-full bg-secondary text-white py-md rounded-xl font-label-md hover:opacity-90 transition-opacity block text-center">
+                                Send Money to Nigeria
+                            </a>
+</div>
+<p class="text-center text-label-sm text-on-surface-variant mt-md">Verified Rate: Updated 2 mins ago</p>
+</div>
+<!-- Decorative element -->
+<div class="absolute -top-10 -right-10 w-40 h-40 bg-secondary/10 rounded-full blur-3xl -z-10"></div>
+<div class="absolute -bottom-10 -left-10 w-40 h-40 bg-primary-container/5 rounded-full blur-3xl -z-10"></div>
+</div>
+</div>
+<!-- Abstract background shape -->
+<div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-secondary/5 to-transparent skew-x-12 -z-0"></div>
+</section>
+<!-- Features Bento Grid -->
+<section class="py-xxl px-lg max-w-7xl mx-auto">
+<div class="text-center mb-xxl">
+<h2 class="font-display-lg text-headline-lg text-primary-container mb-md">Uncompromising Financial Integrity</h2>
+<p class="font-body-md text-on-primary-container max-w-2xl mx-auto">We built Bridgr on three pillars of trust: Directness, Transparency, and Protection.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<!-- Feature 1: Direct Institutional -->
+<div class="md:col-span-2 tonal-layer-1 rounded-xxl overflow-hidden flex flex-col md:flex-row group hover:shadow-xl transition-all duration-500">
+<div class="p-xl flex-1 flex flex-col justify-center">
+<div class="w-12 h-12 bg-primary-container text-white rounded-lg flex items-center justify-center mb-md">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary-container mb-sm">Direct Institution Payments</h3>
+<p class="font-body-md text-on-surface-variant mb-md">Eliminate the middleman. Pay tuition fees to UK universities or medical bills to Nigerian hospitals directly from your dashboard with verified recipient IDs.</p>
+<ul class="space-y-xs text-label-md text-on-surface">
+<li class="flex items-center gap-xs"><span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Verified School Databases</li>
+<li class="flex items-center gap-xs"><span class="material-symbols-outlined text-secondary text-sm">check_circle</span> Instant Payment Confirmation</li>
+</ul>
+</div>
+<div class="flex-1 min-h-[300px] relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A professional aerial view of a modern university campus with clean architecture and green spaces. The sunlight is soft and golden, suggesting a high-end academic environment. The visual style is crisp and corporate, aligning with a premium financial brand focused on educational payments." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkJTqsRFE9XbYlfXwaGmVpLGtAZv7UHTXJK0WoLjjoz4LRMDlyuIK44h4Ee-vPBjZkjIEHMiIHbduWx-vNh8HDpiZNN_NULjMJjjrpcU_F4gd113luLLICtd9_TKX-ugSzsjPvPZ29ED1v8Ewl394-8EpW1HMWIssr4NwhNJ6taScVSX-bX7eOl_-6sL_ivbNZ_FfyNatJWnfciOU9G3FroQeqwRxsa8uYFYUZcJibZWozSGJfGPY3rsQLFr7KiFxBsKVwOYrOg2Wz"/>
+</div>
+</div>
+<!-- Feature 2: Fee Optimization -->
+<div class="tonal-layer-2 bg-secondary text-white rounded-xxl p-xl flex flex-col justify-between hover:scale-[1.02] transition-transform">
+<div>
+<div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-white">insights</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-sm">Fee Optimization</h3>
+<p class="font-body-md text-white/80">Our proprietary algorithm scans market liquidity to find the most efficient routing for your capital, saving you up to 3% on every transfer.</p>
+</div>
+<div class="mt-lg pt-lg border-t border-white/20">
+<span class="font-label-md flex items-center gap-sm">Learn more about routing <span class="material-symbols-outlined">trending_flat</span></span>
+</div>
+</div>
+<!-- Feature 3: Fair Fee Shield -->
+<div class="tonal-layer-1 rounded-xxl p-xl flex flex-col items-center text-center group hover:border-secondary transition-colors">
+<div class="w-16 h-16 bg-surface-container-high rounded-full flex items-center justify-center mb-lg group-hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined text-secondary text-4xl">shield</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary-container mb-sm">Fair Fee Shield</h3>
+<p class="font-body-md text-on-surface-variant">We lock your rate for 24 hours. Even if the market fluctuates wildly, your recipient gets exactly what you promised. No surprises.</p>
+</div>
+<!-- Feature 4: Global Compliance -->
+<div class="md:col-span-2 tonal-layer-1 rounded-xxl p-xl flex flex-col md:flex-row gap-lg items-center">
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md text-primary-container mb-sm">Bank-Grade Security</h3>
+<p class="font-body-md text-on-surface-variant mb-md">Fully regulated by the FCA in the UK and partnering with CBN-licensed institutions. Your capital is held in ring-fenced accounts, ensuring 100% protection at all times.</p>
+<div class="flex gap-md">
+<div class="px-md py-xs bg-surface-container rounded font-label-sm text-on-surface-variant">FCA Regulated</div>
+<div class="px-md py-xs bg-surface-container rounded font-label-sm text-on-surface-variant">PCI-DSS Compliant</div>
+</div>
+</div>
+<div class="w-full md:w-64 h-48 bg-surface-container-high rounded-xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up of a futuristic high-tech digital security vault interface with glowing cyan and navy accents. The image represents cutting-edge financial technology and data protection. The mood is secure, impenetrable, and mathematically precise, matching the brand's core value of transparency." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQjQBJ5gYk0w7ayhVXa3DrgGcfdjO_F0xo9J-B78UNSR0HsqOMVIUACR5-igdbXiPxeUMN89-qOXspJzGTluFzXKxw3Vf7XMCjEnxfQ0g75WVa_xvJEdoL1NqYhy7DNDTKR1oIs8KmVHjV-2xjqcYTOIT4ek1WDJ-FawLuDz1YApCpJR9NZAbldFvagzjyp8Q_X6STqLvarJ2nLdOcEMBgrZYYfPHWqVyeAcHKvSeahHyMpFJUtqCyoKq77Sf6lZ-r8JFlKnbekQO8"/>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works Section -->
+<section class="bg-primary-container py-xxl px-lg text-white">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col lg:flex-row gap-xl items-end justify-between mb-xxl">
+<div>
+<h2 class="font-display-lg text-headline-lg mb-md">Simple as a Local Transfer</h2>
+<p class="font-body-md text-white/70 max-w-xl">We've removed the complexity from international capital movement. Four steps to a secure transaction.</p>
+</div>
+<a href="/register/" class="bg-secondary text-white px-lg py-md rounded-xl font-label-md flex items-center gap-sm inline-flex">
+                        Create Your Free Account <span class="material-symbols-outlined">open_in_new</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-xl">
+<div class="relative">
+<div class="text-[64px] font-bold text-white/10 absolute -top-8 -left-4">01</div>
+<div class="relative z-10">
+<h4 class="font-headline-md text-headline-md mb-sm">Set Amount</h4>
+<p class="font-body-md text-white/70">Choose your destination and amount. See the exact fee and rate upfront.</p>
+</div>
+</div>
+<div class="relative">
+<div class="text-[64px] font-bold text-white/10 absolute -top-8 -left-4">02</div>
+<div class="relative z-10">
+<h4 class="font-headline-md text-headline-md mb-sm">Select Recipient</h4>
+<p class="font-body-md text-white/70">Add a bank account or select a verified school/hospital from our list.</p>
+</div>
+</div>
+<div class="relative">
+<div class="text-[64px] font-bold text-white/10 absolute -top-8 -left-4">03</div>
+<div class="relative z-10">
+<h4 class="font-headline-md text-headline-md mb-sm">Local Payment</h4>
+<p class="font-body-md text-white/70">Pay Bridgr via bank transfer in your local currency. Fast and secure.</p>
+</div>
+</div>
+<div class="relative">
+<div class="text-[64px] font-bold text-white/10 absolute -top-8 -left-4">04</div>
+<div class="relative z-10">
+<h4 class="font-headline-md text-headline-md mb-sm">Delivery</h4>
+<p class="font-body-md text-white/70">Funds are delivered instantly or within 24 hours. Track it live.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="py-xxl px-lg bg-background">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-xxl">
+<h2 class="font-display-lg text-headline-lg text-primary-container">Trusted by Thousands</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<!-- Testimonial 1 -->
+<div class="tonal-layer-2 p-lg rounded-xl border border-outline-variant italic">
+<div class="flex text-secondary mb-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-on-surface mb-lg">"Paying my son's university fees in the UK from Lagos used to be a nightmare with hidden bank fees. Bridgr made it direct and transparent."</p>
+<div class="flex items-center gap-md not-italic">
+<div class="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden">
+<img alt="Ade" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIqoLKIJWbYExOL4D_-DvWVubCb6M1wdP19I0Ybsc-OYGtm9Wpsbu5ca-udid_oFOYiKEkd_MRNXQtv96GWRJu-atrGgPwgQN3W5UNUIAfn3J3iqTHNbVBHJOSpedshEV6jMjJFmjr5bGsccSwsO5FSxgkkMiUlHPtyNEyWmzAPSDAUSBxPDjTZW5IgVYn1GNi4LdWZQtsDReIXOE6QoJ8mo1b29OvEaAgaJAWiLfGbsd54xliehCbsbzgeY3miFq7PFn6cz6NTgKM"/>
+</div>
+<div>
+<h5 class="font-label-md text-primary-container">Adebola O.</h5>
+<p class="text-label-sm text-on-surface-variant">Business Owner, Lagos</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="tonal-layer-2 p-lg rounded-xl border border-outline-variant italic">
+<div class="flex text-secondary mb-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-on-surface mb-lg">"The exchange rate was exactly what I saw on Google. No surprises at checkout. This is how international payments should be."</p>
+<div class="flex items-center gap-md not-italic">
+<div class="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden">
+<img alt="Sarah" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARruEZrjTefMXWTRh8ONEzJROF9B7NNSTR-dJ7UTe7DOhxalAKMJTsqiPkkHck9VhiKSG8SWZ48xiXAJqw9orO8vtxrqo8VbEpDNgc31JF6mvkqgwUEMVcowuz9WAQeJG71wVw23aK-jSAfhrHsz2_zQFzIgAL2Kd2YklXUpcIyE3JtsMBhfPEXA5XKrUl3s7bn7XNGAPSRiR7GFnOdIoKiUU_ZSXMMweK6pjtOxQsEWLzZ5QTTgc5vAQYVulX705p6rUZVvf6hlrP"/>
+</div>
+<div>
+<h5 class="font-label-md text-primary-container">Sarah J.</h5>
+<p class="text-label-sm text-on-surface-variant">Software Engineer, London</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 3 -->
+<div class="tonal-layer-2 p-lg rounded-xl border border-outline-variant italic">
+<div class="flex text-secondary mb-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-on-surface mb-lg">"I love the institution payment feature. I don't have to worry about my relatives handling cash; it goes straight to the hospital."</p>
+<div class="flex items-center gap-md not-italic">
+<div class="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden">
+<img alt="Kevin" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC72kM74uvuSgLHJmIxmxPi-CZn_pGVHJKOKVlGd847oorXSz_s6tLw55bcf1o-1EcgHMltivh4ojuA5yyVO9D4okK6ehTN6prmTiGCf0tbsLJX7lLyhSyKwzPlwe2pJtDgqxjFUMb-8haKEYuyyApbAv_haM7bozOenqx2oMZpyeDTwA8pGNiqF2yFigRFUJNR_ictNVA1ga4ZHIcI_3ahgWxOBU1oiZpXBvsrSVThE5Zv7frYCWw9vBMWAP4P_EA7WU9Eaq6C0bR3"/>
+</div>
+<div>
+<h5 class="font-label-md text-primary-container">Kevin M.</h5>
+<p class="text-label-sm text-on-surface-variant">Nurse, Manchester</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-xxl px-lg bg-surface-container-low">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
+<div>
+<span class="inline-block px-md py-xs bg-secondary-container text-on-secondary-container rounded-full font-label-sm mb-md">MARKETPLACE</span>
+<h2 class="font-display-lg text-headline-lg lg:text-[48px] text-primary-container mb-md">Bridging the Informal Economy</h2>
+<p class="font-body-lg text-on-primary-container mb-xl">
+          Bridgr legitimizes informal exchange vendors (malams, bureau de change) by giving them a secure digital home. They list their rates, you get digital receipts, and everyone stays protected.
+        </p>
+<div class="space-y-lg">
+<div class="flex gap-md">
+<div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary">verified_user</span>
+</div>
+<div>
+<h4 class="font-headline-md text-body-lg font-bold text-primary-container">Verified Status</h4>
+<p class="font-body-md text-on-surface-variant">Every vendor undergoes a rigorous verification process to ensure your funds are in safe hands.</p>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary">currency_exchange</span>
+</div>
+<div>
+<h4 class="font-headline-md text-body-lg font-bold text-primary-container">Transparent Rates</h4>
+<p class="font-body-md text-on-surface-variant">Compare live rates from local vendors instantly and choose the one that works for you.</p>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary">receipt_long</span>
+</div>
+<div>
+<h4 class="font-headline-md text-body-lg font-bold text-primary-container">Digital Receipts</h4>
+<p class="font-body-md text-on-surface-variant">Every informal transaction is recorded with a verifiable digital receipt, building your financial history.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative">
+<div class="tonal-layer-2 rounded-xxl overflow-hidden border border-outline-variant">
+<img alt="Digital Marketplace Interface" class="w-full h-full object-cover min-h-[400px]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpJBydnfJza3U8hkmdtRivLSQFA8IoOBpIlW87M2R30goUBM1teUlsXSmhQzaFaeeAMNQT86ccJbCPiZ9LEwhdy1BOHEF09jIosuyuCukWNnKpVDW4tC9IC23d1NNtbPrukOVFrkfN1T4fiKktfd73XtUwFXyUWO9kaA-9LpNHA9m1gQWEy3nONLKwfu8B8QyNyuVA6j9Vk4XZrIF2V15p9hfrpOjRxM98im_Z36MTDMyStTOEka8Vbf-hyF8RgvAjDXnJVrSbJdTq"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary-container/40 to-transparent"></div>
+</div>
+<div class="absolute -bottom-4 -right-4 bg-white p-md rounded-xl shadow-xl border border-outline-variant flex items-center gap-md">
+<div class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-white">check</span>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant">Vendor Verified</p>
+<p class="font-label-md font-bold text-primary-container">100% Secure</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section class="py-xxl px-lg bg-surface-container-highest">
+<div class="max-w-4xl mx-auto text-center tonal-layer-2 p-xxl rounded-xxl relative overflow-hidden border border-outline-variant">
+<div class="relative z-10">
+<h2 class="font-display-lg text-display-lg text-primary-container mb-md">Ready to Bridge the Gap?</h2>
+<p class="font-body-lg text-on-primary-container mb-xl">Join 50,000+ users sending capital with confidence. No hidden fees, ever.</p>
+<div class="flex flex-col sm:flex-row gap-md justify-center">
+<button class="bg-primary-container text-white px-xl py-md rounded-xl font-label-md hover:scale-105 transition-transform">Create Account</button>
+<button class="bg-white border border-outline-variant text-primary-container px-xl py-md rounded-xl font-label-md hover:bg-surface-container-low transition-all">Talk to Sales</button>
+</div>
+</div>
+<!-- Decorative background pattern -->
+<div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#006b5c 2px, transparent 2px); background-size: 24px 24px;"></div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-primary-container text-on-primary-container py-xxl px-lg">
+<div class="w-full grid grid-cols-1 md:grid-cols-4 gap-xl max-w-7xl mx-auto">
+<div>
+<div class="font-headline-md text-headline-md font-bold text-on-primary-container mb-md">Bridgr</div>
+<p class="font-body-md text-on-primary-container/80">Connecting capital across borders with transparency and trust. FCA regulated and bank-grade secure.</p>
+</div>
+<div>
+<h5 class="text-white font-bold mb-md">Popular Routes</h5>
+<ul class="space-y-sm font-body-md">
+<li><a class="text-on-primary-container/80 hover:text-secondary-fixed transition-colors" href="/vendors/?pair=GBP_NGN">UK to Nigeria</a></li>
+<li><a class="text-on-primary-container/80 hover:text-secondary-fixed transition-colors" href="/vendors/?pair=USD_GHS">US to Ghana</a></li>
+<li><a class="text-on-primary-container/80 hover:text-secondary-fixed transition-colors" href="/vendors/">EU to Kenya</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-white font-bold mb-md">Company</h5>
+<ul class="space-y-sm font-body-md">
+<li><a class="text-on-primary-container/80 hover:text-secondary-fixed transition-colors" href="/about/">About Us</a></li>
+<li><a class="text-on-primary-container/80 hover:text-secondary-fixed transition-colors" href="/how-it-works/">How it Works</a></li>
+<li><a class="text-on-primary-container/80 hover:text-secondary-fixed transition-colors" href="/contact/">Compliance</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-white font-bold mb-md">Legal</h5>
+<ul class="space-y-sm font-body-md">
+<li><a class="text-on-primary-container/80 hover:text-secondary-fixed transition-colors" href="/terms/">Terms of Service</a></li>
+<li><a class="text-on-primary-container/80 hover:text-secondary-fixed transition-colors" href="/privacy/">Privacy Policy</a></li>
+<li><a class="text-on-primary-container/80 hover:text-secondary-fixed transition-colors" href="/security/">Cookie Policy</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-7xl mx-auto mt-xxl pt-lg border-t border-white/10 text-center md:text-left text-label-sm text-on-primary-container/60">
+            © 2024 Bridgr. All rights reserved. Registered in England &amp; Wales.
+        </div>
+</footer>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.style.transform = 'scale(0.98)';
+            });
+            button.addEventListener('mouseup', () => {
+                button.style.transform = '';
+            });
+        });
+
+        // Simple Rate Calculator Logic
+        const inputAmount = document.querySelector('input[type="number"]');
+        const outputAmount = document.querySelectorAll('input[type="number"]')[1];
+        const rate = 1942.50;
+        const feePercent = 0.005;
+
+        inputAmount.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value) || 0;
+            const fee = val * feePercent;
+            const netAmount = val - fee;
+            outputAmount.value = (netAmount * rate).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        });
+    </script>
+</body></html>

@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Institutions | Bridgr{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="bg-primary-container text-white py-xl px-lg">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="font-headline-lg text-headline-lg mb-md">Verified Institutions</h1>
+        <p class="font-body-md text-white/80">Pay schools, hospitals, and businesses directly</p>
+    </div>
+</section>
+
+<!-- Filters -->
+<section class="py-lg px-lg border-b border-outline-variant sticky top-20 bg-white">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex gap-md flex-wrap">
+            <div class="flex gap-md">
+                <!-- Category Filter -->
+                <select onchange="window.location.href='?category=' + this.value + '&country=' + document.getElementById('country-filter').value" id="category-filter" class="px-md py-sm rounded-lg border border-outline font-label-md">
+                    <option value="">All Categories</option>
+                    <option value="school" {% if selected_category == 'school' %}selected{% endif %}>Schools & Universities</option>
+                    <option value="hospital" {% if selected_category == 'hospital' %}selected{% endif %}>Hospitals & Clinics</option>
+                    <option value="business" {% if selected_category == 'business' %}selected{% endif %}>Businesses</option>
+                    <option value="charity" {% if selected_category == 'charity' %}selected{% endif %}>Charities & NGOs</option>
+                </select>
+
+                <!-- Country Filter -->
+                <select onchange="window.location.href='?category=' + document.getElementById('category-filter').value + '&country=' + this.value" id="country-filter" class="px-md py-sm rounded-lg border border-outline font-label-md">
+                    <option value="">All Countries</option>
+                    <option value="NG" {% if selected_country == 'NG' %}selected{% endif %}>Nigeria</option>
+                    <option value="GH" {% if selected_country == 'GH' %}selected{% endif %}>Ghana</option>
+                    <option value="GB" {% if selected_country == 'GB' %}selected{% endif %}>United Kingdom</option>
+                    <option value="US" {% if selected_country == 'US' %}selected{% endif %}>United States</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Institutions Grid -->
+<section class="py-xxl px-lg max-w-7xl mx-auto">
+    {% if institutions %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-xl">
+            {% for institution in institutions %}
+                <div class="tonal-layer-1 rounded-xl overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
+                    <!-- Logo -->
+                    {% if institution.logo %}
+                        <div class="h-40 bg-surface-container flex items-center justify-center">
+                            <img src="{{ institution.logo.url }}" alt="{{ institution.name }}" class="w-full h-full object-cover" />
+                        </div>
+                    {% else %}
+                        <div class="h-40 bg-surface-container flex items-center justify-center">
+                            <span class="material-symbols-outlined text-6xl text-on-surface-variant">domain</span>
+                        </div>
+                    {% endif %}
+
+                    <!-- Details -->
+                    <div class="p-lg flex flex-col flex-grow">
+                        <div class="mb-md">
+                            <h3 class="font-headline-md text-headline-md mb-sm">{{ institution.name }}</h3>
+                            <div class="flex gap-sm flex-wrap">
+                                <span class="px-md py-sm bg-surface-container rounded-full text-label-sm font-label-md">
+                                    {{ institution.get_category_display }}
+                                </span>
+                                <span class="px-md py-sm bg-surface-container rounded-full text-label-sm font-label-md">
+                                    {{ institution.get_country_display }}
+                                </span>
+                                {% if institution.is_verified %}
+                                    <span class="px-md py-sm bg-secondary text-white rounded-full text-label-sm font-label-md flex items-center gap-sm">
+                                        <span class="material-symbols-outlined text-sm">verified</span>
+                                        Verified
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <p class="font-body-sm text-on-surface-variant mb-lg">{{ institution.address }}</p>
+
+                        <!-- Bank Details -->
+                        <div class="border-t border-outline-variant pt-lg mb-lg">
+                            <p class="font-label-md text-on-surface-variant mb-sm"><strong>Account Holder:</strong></p>
+                            <p class="font-body-md">{{ institution.account_name }}</p>
+                            <p class="font-label-md text-on-surface-variant mt-md mb-sm"><strong>Bank:</strong></p>
+                            <p class="font-body-md">{{ institution.bank_name }}</p>
+                            <p class="font-label-md text-on-surface-variant mt-md mb-sm"><strong>Account Number:</strong></p>
+                            <p class="font-body-md font-mono">{{ institution.account_number }}</p>
+                        </div>
+
+                        <a href="{% url 'send_step1' %}" class="btn-secondary w-full text-center block text-label-md py-sm mt-auto">
+                            Pay Now
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center py-xxl">
+            <div class="w-20 h-20 bg-surface-container rounded-full flex items-center justify-center mx-auto mb-lg">
+                <span class="material-symbols-outlined text-4xl text-on-surface-variant">domain</span>
+            </div>
+            <h3 class="font-headline-md text-headline-md mb-md">No institutions found</h3>
+            <p class="font-body-md text-on-surface-variant mb-lg">Try adjusting your filters.</p>
+            <a href="{% url 'institutions' %}" class="text-secondary font-label-md hover:underline">Clear filters</a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

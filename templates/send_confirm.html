@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}Confirm Transfer | Bridgr{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto py-xl px-lg">
+    <!-- Progress Bar -->
+    <div class="mb-xxl">
+        <div class="flex justify-between items-center mb-lg">
+            <div class="text-center opacity-50">
+                <div class="w-10 h-10 bg-surface-container rounded-full flex items-center justify-center mx-auto font-bold">✓</div>
+                <p class="font-label-md mt-sm">Amount</p>
+            </div>
+            <div class="flex-grow h-1 bg-surface-container-low mx-md mt-2"></div>
+            <div class="text-center opacity-50">
+                <div class="w-10 h-10 bg-surface-container rounded-full flex items-center justify-center mx-auto font-bold">✓</div>
+                <p class="font-label-md mt-sm">Recipient</p>
+            </div>
+            <div class="flex-grow h-1 bg-surface-container-low mx-md mt-2"></div>
+            <div class="text-center opacity-50">
+                <div class="w-10 h-10 bg-surface-container rounded-full flex items-center justify-center mx-auto font-bold">✓</div>
+                <p class="font-label-md mt-sm">Fees</p>
+            </div>
+            <div class="flex-grow h-1 bg-surface-container-low mx-md mt-2"></div>
+            <div class="text-center">
+                <div class="w-10 h-10 bg-secondary text-white rounded-full flex items-center justify-center mx-auto font-bold">4</div>
+                <p class="font-label-md mt-sm">Confirm</p>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="font-headline-lg text-headline-lg mb-xl">Review & Confirm Transfer</h1>
+
+    {% if shield_applied %}
+        <div class="mb-lg bg-secondary/10 border-l-4 border-secondary p-lg rounded-lg">
+            <div class="flex gap-md items-start">
+                <span class="material-symbols-outlined text-secondary flex-shrink-0 text-2xl">shield</span>
+                <div>
+                    <p class="font-label-md font-bold text-secondary">Fair Fee Shield Applied</p>
+                    <p class="font-body-sm text-on-surface-variant">Your rate is locked at {{ locked_rate }} for 24 hours. Rate protection active.</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Summary Card -->
+    <form method="post" action="{% url 'send_confirm' %}" class="space-y-lg">
+        {% csrf_token %}
+        
+        <div class="tonal-layer-1 p-xl rounded-xl space-y-md">
+            <!-- You Send -->
+            <div class="border-b border-outline-variant pb-lg">
+                <p class="font-label-md text-on-surface-variant mb-sm">You Send</p>
+                <p class="font-display-lg text-headline-lg">{{ amount }} <span class="text-body-md">{{ send_data.send_currency }}</span></p>
+            </div>
+
+            <!-- Arrow -->
+            <div class="flex justify-center">
+                <span class="material-symbols-outlined text-4xl text-secondary">arrow_downward</span>
+            </div>
+
+            <!-- Exchange Rate -->
+            <div>
+                <p class="font-label-md text-on-surface-variant mb-sm">Exchange Rate</p>
+                <p class="font-headline-md">1 {{ send_data.send_currency }} = {{ locked_rate }} {{ send_data.receive_currency }}</p>
+            </div>
+
+            <!-- Arrow -->
+            <div class="flex justify-center">
+                <span class="material-symbols-outlined text-4xl text-secondary">arrow_downward</span>
+            </div>
+
+            <!-- They Receive -->
+            <div>
+                <p class="font-label-md text-on-surface-variant mb-sm">Recipient Receives</p>
+                <p class="font-display-lg text-headline-lg text-secondary">{{ receive_amount }} <span class="text-body-md">{{ send_data.receive_currency }}</span></p>
+            </div>
+
+            <!-- Fee Breakdown -->
+            <div class="border-t border-outline-variant pt-lg">
+                <p class="font-label-md text-on-surface-variant mb-md">Fee Breakdown</p>
+                <div class="space-y-sm text-body-sm">
+                    {% if fee_type == 'sender' %}
+                        <div class="flex justify-between">
+                            <span>Your fee:</span>
+                            <span class="font-bold">{{ sender_fee }}</span>
+                        </div>
+                        <div class="flex justify-between text-secondary">
+                            <span>Their fee:</span>
+                            <span class="font-bold">$0</span>
+                        </div>
+                    {% elif fee_type == 'recipient' %}
+                        <div class="flex justify-between">
+                            <span>Your fee:</span>
+                            <span class="font-bold">$0</span>
+                        </div>
+                        <div class="flex justify-between text-secondary">
+                            <span>Their fee:</span>
+                            <span class="font-bold">{{ recipient_fee }}</span>
+                        </div>
+                    {% else %}
+                        <div class="flex justify-between">
+                            <span>Your fee:</span>
+                            <span class="font-bold">{{ sender_fee }}</span>
+                        </div>
+                        <div class="flex justify-between text-secondary">
+                            <span>Their fee:</span>
+                            <span class="font-bold">{{ recipient_fee }}</span>
+                        </div>
+                    {% endif %}
+                    <div class="border-t border-outline-variant pt-sm flex justify-between font-headline-md">
+                        <span>Total Fee:</span>
+                        <span class="text-primary">{{ total_fee }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recipient Info -->
+            <div class="bg-surface-container rounded-lg p-md">
+                <p class="font-label-md text-on-surface-variant mb-sm">Recipient</p>
+                <p class="font-headline-md">{{ send_data.recipient_name }}</p>
+                {% if send_data.purpose %}
+                    <p class="font-label-sm text-on-surface-variant mt-sm">Purpose: {{ send_data.purpose }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="flex gap-md">
+            <a href="{% url 'send_step3' %}" class="btn-tertiary flex-1 text-center">← Back</a>
+            <button type="submit" class="btn-secondary flex-1">
+                <span class="material-symbols-outlined">check_circle</span>
+                Confirm & Send
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

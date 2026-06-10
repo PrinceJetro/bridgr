@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}Send Money - Step 3 | Bridgr{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto py-xl px-lg">
+    <!-- Progress Bar -->
+    <div class="mb-xxl">
+        <div class="flex justify-between items-center mb-lg">
+            <div class="text-center opacity-50">
+                <div class="w-10 h-10 bg-surface-container rounded-full flex items-center justify-center mx-auto font-bold">✓</div>
+                <p class="font-label-md mt-sm">Amount</p>
+            </div>
+            <div class="flex-grow h-1 bg-surface-container-low mx-md mt-2"></div>
+            <div class="text-center opacity-50">
+                <div class="w-10 h-10 bg-surface-container rounded-full flex items-center justify-center mx-auto font-bold">✓</div>
+                <p class="font-label-md mt-sm">Recipient</p>
+            </div>
+            <div class="flex-grow h-1 bg-surface-container-low mx-md mt-2"></div>
+            <div class="text-center">
+                <div class="w-10 h-10 bg-secondary text-white rounded-full flex items-center justify-center mx-auto font-bold">3</div>
+                <p class="font-label-md mt-sm">Fees</p>
+            </div>
+            <div class="flex-grow h-1 bg-surface-container-low mx-md mt-2"></div>
+            <div class="text-center opacity-50">
+                <div class="w-10 h-10 bg-surface-container rounded-full flex items-center justify-center mx-auto font-bold">4</div>
+                <p class="font-label-md mt-sm">Confirm</p>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="font-headline-lg text-headline-lg mb-xl">How should fees be split?</h1>
+
+    <div class="mb-lg tonal-layer-1 p-lg rounded-xl">
+        <p class="font-label-md text-on-surface-variant mb-md">
+            <strong>Exchange Rate:</strong> 1 {{ send_data.send_currency }} = {{ rate }} {{ send_data.receive_currency }}
+        </p>
+        {% if is_fallback %}
+            <div class="bg-amber-500/10 text-amber-600 p-md rounded-lg flex gap-md items-start">
+                <span class="material-symbols-outlined flex-shrink-0">warning</span>
+                <span class="font-body-sm">
+                    <strong>Using fallback rate:</strong> Live rate unavailable. This rate will be locked when you confirm.
+                </span>
+            </div>
+        {% endif %}
+    </div>
+
+    <form method="post" action="{% url 'send_step3' %}" class="space-y-lg">
+        {% csrf_token %}
+        
+        <div class="space-y-md">
+            <!-- Option A: Sender Pays All -->
+            <label class="block">
+                <input type="radio" name="fee_type" value="sender" class="hidden peer" />
+                <div class="peer-checked:border-secondary peer-checked:bg-surface-container-low cursor-pointer tonal-layer-1 p-lg rounded-xl border-2 border-outline-variant transition-all hover:border-secondary">
+                    <div class="flex items-start justify-between mb-md">
+                        <div>
+                            <h3 class="font-headline-md mb-sm">You Pay Full Fee</h3>
+                            <p class="font-body-sm text-on-surface-variant">Your recipient gets the full converted amount</p>
+                        </div>
+                        <div class="w-6 h-6 rounded-full border-2 border-outline peer-checked:bg-secondary peer-checked:border-secondary"></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-md">
+                        <div>
+                            <p class="font-label-md text-on-surface-variant">You send:</p>
+                            <p class="font-headline-md">{{ amount }} {{ send_data.send_currency }}</p>
+                            <p class="font-label-sm text-secondary">+ {{ sender_option.1|default:'0' }} fee</p>
+                        </div>
+                        <div>
+                            <p class="font-label-md text-on-surface-variant">They get:</p>
+                            <p class="font-headline-md text-secondary">{{ receive_amount }} {{ send_data.receive_currency }}</p>
+                            <p class="font-label-sm">No deductions</p>
+                        </div>
+                    </div>
+                </div>
+            </label>
+
+            <!-- Option B: Recipient Pays -->
+            <label class="block">
+                <input type="radio" name="fee_type" value="recipient" class="hidden peer" />
+                <div class="peer-checked:border-secondary peer-checked:bg-surface-container-low cursor-pointer tonal-layer-1 p-lg rounded-xl border-2 border-outline-variant transition-all hover:border-secondary">
+                    <div class="flex items-start justify-between mb-md">
+                        <div>
+                            <h3 class="font-headline-md mb-sm">Recipient Pays Fee</h3>
+                            <p class="font-body-sm text-on-surface-variant">Save money, recipient covers the cost</p>
+                        </div>
+                        <div class="w-6 h-6 rounded-full border-2 border-outline peer-checked:bg-secondary peer-checked:border-secondary"></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-md">
+                        <div>
+                            <p class="font-label-md text-on-surface-variant">You send:</p>
+                            <p class="font-headline-md">{{ amount }} {{ send_data.send_currency }}</p>
+                            <p class="font-label-sm">Exact amount</p>
+                        </div>
+                        <div>
+                            <p class="font-label-md text-on-surface-variant">They get:</p>
+                            <p class="font-headline-md text-secondary">{{ receive_amount|add:'-'|add:recipient_option.1|default:'0' }} {{ send_data.receive_currency }}</p>
+                            <p class="font-label-sm text-error">- {{ recipient_option.1|default:'0' }} fee</p>
+                        </div>
+                    </div>
+                </div>
+            </label>
+
+            <!-- Option C: Split -->
+            <label class="block">
+                <input type="radio" name="fee_type" value="split" class="hidden peer" checked />
+                <div class="peer-checked:border-secondary peer-checked:bg-surface-container-low cursor-pointer tonal-layer-1 p-lg rounded-xl border-2 border-secondary transition-all hover:border-secondary">
+                    <div class="flex items-start justify-between mb-md">
+                        <div>
+                            <h3 class="font-headline-md mb-sm">Split 50/50</h3>
+                            <p class="font-body-sm text-on-surface-variant">Fair cost sharing</p>
+                        </div>
+                        <div class="w-6 h-6 rounded-full border-2 bg-secondary border-secondary"></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-md">
+                        <div>
+                            <p class="font-label-md text-on-surface-variant">You send:</p>
+                            <p class="font-headline-md">{{ amount|add:split_option.1|default:'0' }} {{ send_data.send_currency }}</p>
+                            <p class="font-label-sm text-secondary">+ {{ split_option.1|default:'0' }} fee</p>
+                        </div>
+                        <div>
+                            <p class="font-label-md text-on-surface-variant">They get:</p>
+                            <p class="font-headline-md text-secondary">{{ receive_amount|add:'-'|add:split_option.2|default:'0' }} {{ send_data.receive_currency }}</p>
+                            <p class="font-label-sm text-error">- {{ split_option.2|default:'0' }} fee</p>
+                        </div>
+                    </div>
+                </div>
+            </label>
+        </div>
+
+        <div class="flex gap-md">
+            <a href="{% url 'send_step2' %}" class="btn-tertiary flex-1 text-center">← Back</a>
+            <button type="submit" class="btn-secondary flex-1">Next Step →</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

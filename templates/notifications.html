@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Notifications | Bridgr{% endblock %}
+
+{% block content %}
+<div class="flex min-h-[80vh] w-full">
+{% include "partials/app_sidebar.html" %}
+<div class="flex-grow max-w-4xl py-xl px-lg">
+    <h1 class="font-headline-lg text-headline-lg mb-xl">Notifications</h1>
+
+    {% if notifications %}
+        <div class="space-y-md">
+            {% for notification in notifications %}
+                <div class="tonal-layer-1 p-lg rounded-xl flex gap-md items-start hover:bg-surface-container-high transition-colors {% if not notification.is_read %}border-l-4 border-secondary{% endif %}{% if notification.transaction %} cursor-pointer{% endif %}"
+                    {% if notification.transaction %}onclick="window.location.href='{% url 'receipt' notification.transaction.pk %}'"{% endif %}>
+                    <!-- Icon -->
+                    <div class="w-12 h-12 bg-secondary text-white rounded-lg flex items-center justify-center flex-shrink-0">
+                        <span class="material-symbols-outlined">
+                            {% if 'completed' in notification.message %}check_circle{% elif 'pending' in notification.message %}schedule{% elif 'failed' in notification.message %}error{% else %}mail{% endif %}
+                        </span>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="flex-grow">
+                        <p class="font-body-md">{{ notification.message }}</p>
+                        {% if notification.transaction %}
+                            <p class="font-label-sm text-on-surface-variant mt-sm">
+                                Ref: <span class="font-mono">{{ notification.transaction.reference|truncatechars:12 }}</span>
+                            </p>
+                        {% endif %}
+                        <p class="font-label-sm text-on-surface-variant mt-sm">
+                            {{ notification.created_at|timesince }} ago
+                        </p>
+                    </div>
+
+                    <!-- Read Status -->
+                    {% if not notification.is_read %}
+                        <div class="w-3 h-3 bg-secondary rounded-full flex-shrink-0 mt-2"></div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center py-xxl tonal-layer-1 rounded-xl">
+            <div class="w-20 h-20 bg-surface-container rounded-full flex items-center justify-center mx-auto mb-lg">
+                <span class="material-symbols-outlined text-4xl text-on-surface-variant">mail_outline</span>
+            </div>
+            <h3 class="font-headline-md text-headline-md mb-md">No notifications</h3>
+            <p class="font-body-md text-on-surface-variant">You're all caught up! We'll notify you when something important happens.</p>
+        </div>
+    {% endif %}
+</div>
+</div>
+{% endblock %}

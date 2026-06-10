@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{% block title %}Bridgr | Cross-Border Payments{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <style>.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }</style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        background: "#f8f9ff",
+                        "surface-dim": "#cbdbf5",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "on-secondary-fixed-variant": "#005145",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-fixed-dim": "#b9c7e4",
+                        surface: "#f8f9ff",
+                        "surface-bright": "#f8f9ff",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-surface-variant": "#44474d",
+                        outline: "#75777e",
+                        "on-tertiary-fixed": "#002113",
+                        primary: "#000000",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#dce9ff",
+                        "surface-tint": "#515f78",
+                        tertiary: "#000000",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#c5c6cd",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary-container": "#007261",
+                        secondary: "#006b5c",
+                        "inverse-surface": "#213145",
+                        "on-secondary-fixed": "#00201a",
+                        "tertiary-container": "#002113",
+                        "primary-container": "#0d1c32",
+                        "on-background": "#0b1c30",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-container": "#009668",
+                    },
+                    spacing: {
+                        xs: "4px",
+                        sm: "8px",
+                        md: "16px",
+                        lg: "24px",
+                        xl: "32px",
+                        xxl: "48px",
+                    },
+                    fontSize: {
+                        "label-sm": "12px",
+                        "label-md": "14px",
+                        "body-sm": "13px",
+                        "body-md": "16px",
+                        "headline-md": "28px",
+                        "headline-lg": "32px",
+                        "display-lg": "57px",
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        .tonal-layer-1 {
+            @apply bg-surface-container-low text-on-background border border-outline-variant;
+        }
+        .tonal-layer-2 {
+            @apply bg-surface-container text-on-background;
+        }
+        .btn-primary {
+            @apply bg-primary text-white px-lg py-md rounded-xl font-label-md hover:opacity-90 transition-opacity;
+        }
+        .btn-secondary {
+            @apply bg-secondary text-white px-lg py-md rounded-xl font-label-md hover:opacity-90 transition-opacity;
+        }
+        .btn-tertiary {
+            @apply bg-surface-container text-primary px-lg py-md rounded-xl font-label-md hover:bg-surface-container-high transition-colors;
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-background text-on-background font-inter">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white shadow-sm border-b border-outline-variant">
+        <div class="max-w-7xl mx-auto px-lg py-md flex justify-between items-center">
+            <a href="{% url 'home' %}" class="font-bold text-primary-container text-xl">Bridgr</a>
+            <div class="hidden md:flex gap-xl items-center">
+                <a href="{% url 'home' %}" class="font-body-md text-on-surface-variant hover:text-primary">Home</a>
+                <a href="{% url 'how_it_works' %}" class="font-body-md text-on-surface-variant hover:text-primary">How It Works</a>
+                <a href="{% url 'vendors' %}" class="font-body-md text-on-surface-variant hover:text-primary">Vendors</a>
+                <a href="{% url 'institutions' %}" class="font-body-md text-on-surface-variant hover:text-primary">Institutions</a>
+            </div>
+            <div class="flex gap-md items-center">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}" class="btn-tertiary text-sm px-md py-sm">Dashboard</a>
+                    <a href="{% url 'send_step1' %}" class="btn-secondary text-sm px-md py-sm">Send</a>
+                    <a href="{% url 'logout' %}" class="btn-tertiary text-sm px-md py-sm">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn-tertiary text-sm px-md py-sm">Login</a>
+                    <a href="{% url 'register' %}" class="btn-secondary text-sm px-md py-sm">Sign Up</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="max-w-7xl mx-auto px-lg py-md">
+        {% for message in messages %}
+        <div class="p-md bg-{% if message.tags %}{{ message.tags }}-container{% else %}surface-container{% endif %} text-{% if message.tags %}on-{{ message.tags }}-container{% else %}on-surface{% endif %} rounded-lg mb-md">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary-container text-white mt-xxl py-xxl">
+        <div class="max-w-7xl mx-auto px-lg">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-xl mb-xl">
+                <div>
+                    <h4 class="font-headline-md mb-md">Bridgr</h4>
+                    <p class="font-body-sm text-white/70">Transparent, direct international payments.</p>
+                </div>
+                <div>
+                    <h5 class="font-label-md font-bold mb-md">Product</h5>
+                    <ul class="space-y-sm font-body-sm text-white/70">
+                        <li><a href="{% url 'home' %}" class="hover:text-white">Home</a></li>
+                        <li><a href="{% url 'how_it_works' %}" class="hover:text-white">How It Works</a></li>
+                        <li><a href="{% url 'vendors' %}" class="hover:text-white">Vendors</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-label-md font-bold mb-md">Company</h5>
+                    <ul class="space-y-sm font-body-sm text-white/70">
+                        <li><a href="{% url 'about' %}" class="hover:text-white">About</a></li>
+                        <li><a href="{% url 'blog' %}" class="hover:text-white">Blog</a></li>
+                        <li><a href="{% url 'contact' %}" class="hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-label-md font-bold mb-md">Legal</h5>
+                    <ul class="space-y-sm font-body-sm text-white/70">
+                        <li><a href="{% url 'privacy' %}" class="hover:text-white">Privacy</a></li>
+                        <li><a href="{% url 'terms' %}" class="hover:text-white">Terms</a></li>
+                        <li><a href="{% url 'security' %}" class="hover:text-white">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/20 pt-xl text-center font-body-sm text-white/60">
+                <p>&copy; 2026 Bridgr. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

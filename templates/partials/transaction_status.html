@@ -1,0 +1,20 @@
+{% if transaction.status == 'completed' %}
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600">
+    <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+    {{ transaction.get_status_display }}
+</span>
+{% elif transaction.status == 'processing' or transaction.status == 'pending' %}
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-bold bg-amber-500/10 text-amber-600">
+    <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">schedule</span>
+    {{ transaction.get_status_display }}
+</span>
+{% elif transaction.status == 'failed' %}
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-bold bg-error-container text-on-error-container">
+    <span class="material-symbols-outlined text-[14px]">error</span>
+    {{ transaction.get_status_display }}
+</span>
+{% else %}
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-bold bg-surface-container text-on-surface">
+    {{ transaction.get_status_display }}
+</span>
+{% endif %}

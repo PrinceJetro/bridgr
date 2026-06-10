@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+
+{% block title %}How It Works | Bridgr{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="bg-primary-container text-white py-xxl px-lg">
+    <div class="max-w-7xl mx-auto text-center">
+        <h1 class="font-display-lg text-headline-lg mb-md">How Bridgr Works</h1>
+        <p class="font-body-md text-white/80 max-w-2xl mx-auto">
+            Four simple steps to move money across borders safely, transparently, and affordably.
+        </p>
+    </div>
+</section>
+
+<!-- 4-Step Flow -->
+<section class="py-xxl px-lg max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-xl mb-xxl">
+        <!-- Step 1 -->
+        <div class="text-center">
+            <div class="w-20 h-20 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-md text-4xl font-bold">
+                1
+            </div>
+            <h3 class="font-headline-md text-headline-md mb-sm">Set Amount</h3>
+            <p class="font-body-md text-on-surface-variant">
+                Choose how much to send, your destination currency, and see the live exchange rate instantly.
+            </p>
+        </div>
+
+        <!-- Arrow -->
+        <div class="hidden md:flex items-center justify-center">
+            <span class="material-symbols-outlined text-4xl text-outline">arrow_forward</span>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="text-center">
+            <div class="w-20 h-20 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-md text-4xl font-bold">
+                2
+            </div>
+            <h3 class="font-headline-md text-headline-md mb-sm">Select Recipient</h3>
+            <p class="font-body-md text-on-surface-variant">
+                Add a person's bank details or select a verified institution from our marketplace.
+            </p>
+        </div>
+
+        <!-- Arrow -->
+        <div class="hidden md:flex items-center justify-center">
+            <span class="material-symbols-outlined text-4xl text-outline">arrow_forward</span>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="text-center">
+            <div class="w-20 h-20 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-md text-4xl font-bold">
+                3
+            </div>
+            <h3 class="font-headline-md text-headline-md mb-sm">Choose Fee</h3>
+            <p class="font-body-md text-on-surface-variant">
+                Pick how fees are split: you pay all, recipient pays all, or split 50/50.
+            </p>
+        </div>
+
+        <!-- Arrow -->
+        <div class="hidden md:flex items-center justify-center">
+            <span class="material-symbols-outlined text-4xl text-outline">arrow_forward</span>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="text-center">
+            <div class="w-20 h-20 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-md text-4xl font-bold">
+                4
+            </div>
+            <h3 class="font-headline-md text-headline-md mb-sm">Confirm & Send</h3>
+            <p class="font-body-md text-on-surface-variant">
+                Review, confirm, and your money is on its way. Real-time status updates included.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Fee Optimization Engine -->
+<section class="bg-surface-container-low py-xxl px-lg">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="font-headline-lg text-headline-lg mb-md text-center">Fee Optimization Engine</h2>
+        <p class="font-body-md text-on-surface-variant text-center max-w-2xl mx-auto mb-xxl">
+            Choose how you want to split fees. Our system ensures transparency at every step.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-xl">
+            <!-- Option A: Sender Pays All -->
+            <div class="tonal-layer-1 p-xl rounded-xl hover:shadow-lg transition-shadow">
+                <div class="w-12 h-12 bg-primary rounded text-white flex items-center justify-center mb-md">
+                    <span class="material-symbols-outlined">account_balance_wallet</span>
+                </div>
+                <h3 class="font-headline-md mb-md">You Pay Full Fee</h3>
+                <div class="space-y-md">
+                    <div>
+                        <p class="font-label-md text-on-surface-variant">You send:</p>
+                        <p class="font-headline-md">$500 + $15 fee</p>
+                    </div>
+                    <div class="border-t border-outline pt-md">
+                        <p class="font-label-md text-on-surface-variant">Recipient gets:</p>
+                        <p class="font-headline-md text-secondary">₦234,567</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Option B: Recipient Pays -->
+            <div class="tonal-layer-1 p-xl rounded-xl hover:shadow-lg transition-shadow">
+                <div class="w-12 h-12 bg-primary rounded text-white flex items-center justify-center mb-md">
+                    <span class="material-symbols-outlined">savings</span>
+                </div>
+                <h3 class="font-headline-md mb-md">Recipient Pays Fee</h3>
+                <div class="space-y-md">
+                    <div>
+                        <p class="font-label-md text-on-surface-variant">You send:</p>
+                        <p class="font-headline-md">$500</p>
+                    </div>
+                    <div class="border-t border-outline pt-md">
+                        <p class="font-label-md text-on-surface-variant">Recipient gets:</p>
+                        <p class="font-headline-md text-secondary">₦233,987 (-15 fee)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Option C: Split -->
+            <div class="tonal-layer-1 p-xl rounded-xl hover:shadow-lg transition-shadow">
+                <div class="w-12 h-12 bg-primary rounded text-white flex items-center justify-center mb-md">
+                    <span class="material-symbols-outlined">balance</span>
+                </div>
+                <h3 class="font-headline-md mb-md">Split 50/50</h3>
+                <div class="space-y-md">
+                    <div>
+                        <p class="font-label-md text-on-surface-variant">You send:</p>
+                        <p class="font-headline-md">$507.50</p>
+                    </div>
+                    <div class="border-t border-outline pt-md">
+                        <p class="font-label-md text-on-surface-variant">Recipient gets:</p>
+                        <p class="font-headline-md text-secondary">₦234,277 (-7.50 fee)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Fair Fee Shield -->
+<section class="py-xxl px-lg max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-xl items-center">
+        <div>
+            <h2 class="font-headline-lg text-headline-lg mb-md">Fair Fee Shield ⚡</h2>
+            <p class="font-body-md text-on-surface-variant mb-lg">
+                When you confirm your transfer, we lock the exchange rate for 24 hours. Even if the market swings wildly, your recipient gets exactly what you promised.
+            </p>
+            <ul class="space-y-md">
+                <li class="flex gap-md items-start">
+                    <span class="material-symbols-outlined text-secondary flex-shrink-0">check_circle</span>
+                    <span class="font-body-md">
+                        <strong>Rate Locked for 24h</strong> — No volatility surprises
+                    </span>
+                </li>
+                <li class="flex gap-md items-start">
+                    <span class="material-symbols-outlined text-secondary flex-shrink-0">check_circle</span>
+                    <span class="font-body-md">
+                        <strong>Automatic Activation</strong> — Triggered if market volatility exceeds 2%
+                    </span>
+                </li>
+                <li class="flex gap-md items-start">
+                    <span class="material-symbols-outlined text-secondary flex-shrink-0">check_circle</span>
+                    <span class="font-body-md">
+                        <strong>No Extra Cost</strong> — Built into your fee structure
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="bg-surface-container rounded-xl p-xl text-center">
+            <div class="text-6xl mb-md">⚡</div>
+            <h4 class="font-headline-md mb-md">Real-Time Example</h4>
+            <div class="space-y-sm text-on-surface-variant">
+                <div>
+                    <p class="font-label-md">Rate at quote:</p>
+                    <p class="font-headline-md text-primary">1 GBP = 512.45 NGN</p>
+                </div>
+                <div class="py-md border-y border-outline">
+                    <p class="font-label-md text-secondary">Market swings to 495 NGN (3.4% drop)</p>
+                </div>
+                <div>
+                    <p class="font-label-md">Your recipient still gets:</p>
+                    <p class="font-headline-md text-secondary">512.45 NGN per GBP</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Institution Payments -->
+<section class="bg-surface-container-low py-xxl px-lg">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-xl items-center">
+            <div>
+                <img src="https://via.placeholder.com/400x300?text=Institution+Payments" alt="Institution payments" class="rounded-xl w-full" />
+            </div>
+            <div>
+                <h2 class="font-headline-lg text-headline-lg mb-md">Direct Institutional Payments</h2>
+                <p class="font-body-md text-on-surface-variant mb-lg">
+                    No intermediaries. No delays. Pay tuition to UK universities or medical bills to Nigerian hospitals directly. Our database of verified institutions ensures your money reaches the right place.
+                </p>
+                <ul class="space-y-md">
+                    <li class="flex gap-md items-start">
+                        <span class="material-symbols-outlined text-secondary flex-shrink-0">school</span>
+                        <span class="font-body-md">
+                            <strong>Schools & Universities</strong> — Tuition, fees, accommodation
+                        </span>
+                    </li>
+                    <li class="flex gap-md items-start">
+                        <span class="material-symbols-outlined text-secondary flex-shrink-0">local_hospital</span>
+                        <span class="font-body-md">
+                            <strong>Hospitals & Clinics</strong> — Treatment, procedures, consultations
+                        </span>
+                    </li>
+                    <li class="flex gap-md items-start">
+                        <span class="material-symbols-outlined text-secondary flex-shrink-0">domain</span>
+                        <span class="font-body-md">
+                            <strong>Businesses & NGOs</strong> — Donations, partnerships, orders
+                        </span>
+                    </li>
+                </ul>
+                <a href="/institutions/" class="btn-secondary inline-block mt-lg">Browse Verified Institutions</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="py-xxl px-lg max-w-4xl mx-auto">
+    <h2 class="font-headline-lg text-headline-lg mb-xxl text-center">Frequently Asked Questions</h2>
+    
+    <div class="space-y-md">
+        <!-- FAQ 1 -->
+        <details class="group border border-outline-variant rounded-xl overflow-hidden">
+            <summary class="p-lg flex justify-between items-center cursor-pointer hover:bg-surface-container-low transition-colors">
+                <span class="font-headline-md">How long does a transfer take?</span>
+                <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+            </summary>
+            <div class="px-lg pb-lg text-on-surface-variant border-t border-outline-variant">
+                <p class="font-body-md mb-md">
+                    Most transfers arrive within 1-3 business days. Direct institutional payments are often faster (same day in some cases).
+                </p>
+            </div>
+        </details>
+
+        <!-- FAQ 2 -->
+        <details class="group border border-outline-variant rounded-xl overflow-hidden">
+            <summary class="p-lg flex justify-between items-center cursor-pointer hover:bg-surface-container-low transition-colors">
+                <span class="font-headline-md">What's the minimum/maximum amount?</span>
+                <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+            </summary>
+            <div class="px-lg pb-lg text-on-surface-variant border-t border-outline-variant">
+                <p class="font-body-md mb-md">
+                    Minimum: £10 / $15 / ₦5,000. Maximum depends on your verification level (Standard: $50k, Premium: Unlimited).
+                </p>
+            </div>
+        </details>
+
+        <!-- FAQ 3 -->
+        <details class="group border border-outline-variant rounded-xl overflow-hidden">
+            <summary class="p-lg flex justify-between items-center cursor-pointer hover:bg-surface-container-low transition-colors">
+                <span class="font-headline-md">Is it safe? Are you regulated?</span>
+                <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+            </summary>
+            <div class="px-lg pb-lg text-on-surface-variant border-t border-outline-variant">
+                <p class="font-body-md mb-md">
+                    Yes. We're FCA-regulated in the UK, partner with CBN-licensed institutions in Nigeria, and hold all funds in ring-fenced accounts. PCI-DSS Level 1 compliant.
+                </p>
+            </div>
+        </details>
+
+        <!-- FAQ 4 -->
+        <details class="group border border-outline-variant rounded-xl overflow-hidden">
+            <summary class="p-lg flex justify-between items-center cursor-pointer hover:bg-surface-container-low transition-colors">
+                <span class="font-headline-md">How does the Fair Fee Shield work?</span>
+                <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+            </summary>
+            <div class="px-lg pb-lg text-on-surface-variant border-t border-outline-variant">
+                <p class="font-body-md mb-md">
+                    When you confirm your transfer, we lock the exchange rate. If market volatility exceeds 2% in the next 24 hours, your recipient's amount is protected at the locked rate.
+                </p>
+            </div>
+        </details>
+
+        <!-- FAQ 5 -->
+        <details class="group border border-outline-variant rounded-xl overflow-hidden">
+            <summary class="p-lg flex justify-between items-center cursor-pointer hover:bg-surface-container-low transition-colors">
+                <span class="font-headline-md">Can I use Bridgr as a business?</span>
+                <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+            </summary>
+            <div class="px-lg pb-lg text-on-surface-variant border-t border-outline-variant">
+                <p class="font-body-md mb-md">
+                    Yes! We have special business tiers with volume discounts, batch processing, and dedicated support. Contact sales@bridgr.com.
+                </p>
+            </div>
+        </details>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="bg-primary-container text-white py-xxl px-lg">
+    <div class="max-w-7xl mx-auto text-center">
+        <h2 class="font-headline-lg text-headline-lg mb-md">Ready to Send Money with Confidence?</h2>
+        <p class="font-body-md text-white/80 mb-xl max-w-2xl mx-auto">
+            Create your free account and make your first transfer today. No credit card required.
+        </p>
+        <a href="/register/" class="btn-secondary">Get Started Free →</a>
+    </div>
+</section>
+{% endblock %}

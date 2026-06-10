@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Transaction History | Bridgr{% endblock %}
+
+{% block content %}
+<div class="flex min-h-[80vh] w-full">
+{% include "partials/app_sidebar.html" %}
+<div class="flex-grow max-w-7xl py-xl px-lg">
+    <h1 class="font-headline-lg text-headline-lg mb-xl">Transaction History</h1>
+
+    <!-- Filters -->
+    <div class="tonal-layer-1 rounded-xl p-lg mb-xl">
+        <div class="flex gap-md flex-wrap">
+            <!-- Status Filter -->
+            <select onchange="window.location.href='?status=' + this.value + '&currency=' + document.getElementById('currency-filter').value" id="status-filter" class="px-md py-sm rounded-lg border border-outline font-label-md">
+                <option value="">All Status</option>
+                <option value="pending" {% if request.GET.status == 'pending' %}selected{% endif %}>Pending</option>
+                <option value="processing" {% if request.GET.status == 'processing' %}selected{% endif %}>Processing</option>
+                <option value="completed" {% if request.GET.status == 'completed' %}selected{% endif %}>Completed</option>
+                <option value="failed" {% if request.GET.status == 'failed' %}selected{% endif %}>Failed</option>
+                <option value="refunded" {% if request.GET.status == 'refunded' %}selected{% endif %}>Refunded</option>
+            </select>
+
+            <!-- Currency Filter -->
+            <select onchange="window.location.href='?status=' + document.getElementById('status-filter').value + '&currency=' + this.value" id="currency-filter" class="px-md py-sm rounded-lg border border-outline font-label-md">
+                <option value="">All Currencies</option>
+                <option value="GBP" {% if request.GET.currency == 'GBP' %}selected{% endif %}>GBP</option>
+                <option value="USD" {% if request.GET.currency == 'USD' %}selected{% endif %}>USD</option>
+                <option value="NGN" {% if request.GET.currency == 'NGN' %}selected{% endif %}>NGN</option>
+                <option value="GHS" {% if request.GET.currency == 'GHS' %}selected{% endif %}>GHS</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Transactions Table -->
+    {% if transactions %}
+        <div class="overflow-x-auto">
+            <table class="w-full text-label-md">
+                <thead>
+                    <tr class="border-b border-outline-variant text-on-surface-variant">
+                        <th class="text-left py-md px-md">Reference</th>
+                        <th class="text-left py-md px-md">Send</th>
+                        <th class="text-left py-md px-md">Receive</th>
+                        <th class="text-left py-md px-md">Recipient</th>
+                        <th class="text-left py-md px-md">Status</th>
+                        <th class="text-left py-md px-md">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                        <tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors cursor-pointer" onclick="window.location.href='{% url 'receipt' transaction.pk %}'">
+                            <td class="py-md px-md font-mono text-secondary">{{ transaction.reference|truncatechars:12 }}</td>
+                            <td class="py-md px-md">
+                                <span class="font-body-md">{{ transaction.send_amount }}</span>
+                                <span class="text-on-surface-variant">{{ transaction.send_currency }}</span>
+                            </td>
+                            <td class="py-md px-md">
+                                <span class="font-body-md">{{ transaction.receive_amount }}</span>
+                                <span class="text-on-surface-variant">{{ transaction.receive_currency }}</span>
+                            </td>
+                            <td class="py-md px-md">
+                                {% if transaction.recipient_type == 'person' %}
+                                    {{ transaction.recipient_name }}
+                                {% else %}
+                                    {{ transaction.institution.name }}
+                                {% endif %}
+                            </td>
+                            <td class="py-md px-md">
+                                <span class="px-md py-sm rounded-full text-label-sm font-label-md inline-block
+                                    {% if transaction.status == 'completed' %}bg-secondary text-white{% elif transaction.status == 'pending' %}bg-surface-container text-on-surface{% elif transaction.status == 'failed' %}bg-error-container text-on-error-container{% else %}bg-surface-container text-on-surface{% endif %}">
+                                    {{ transaction.get_status_display }}
+                                </span>
+                            </td>
+                            <td class="py-md px-md text-on-surface-variant">{{ transaction.created_at|date:"M d, Y" }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="text-center py-xxl tonal-layer-1 rounded-xl">
+            <div class="w-20 h-20 bg-surface-container rounded-full flex items-center justify-center mx-auto mb-lg">
+                <span class="material-symbols-outlined text-4xl text-on-surface-variant">compare_arrows</span>
+            </div>
+            <h3 class="font-headline-md text-headline-md mb-md">No transactions found</h3>
+            <p class="font-body-md text-on-surface-variant mb-lg">Start sending money to see your transaction history.</p>
+            <a href="{% url 'send_step1' %}" class="btn-secondary">Send Money Now</a>
+        </div>
+    {% endif %}
+</div>
+</div>
+{% endblock %}

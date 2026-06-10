@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Send Money - Step 1 | Bridgr{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto py-xl px-lg">
+    <!-- Progress Bar -->
+    <div class="mb-xxl">
+        <div class="flex justify-between items-center mb-lg">
+            <div class="text-center">
+                <div class="w-10 h-10 bg-secondary text-white rounded-full flex items-center justify-center mx-auto font-bold">1</div>
+                <p class="font-label-md mt-sm">Amount</p>
+            </div>
+            <div class="flex-grow h-1 bg-surface-container-low mx-md mt-2"></div>
+            <div class="text-center opacity-50">
+                <div class="w-10 h-10 bg-surface-container rounded-full flex items-center justify-center mx-auto font-bold">2</div>
+                <p class="font-label-md mt-sm">Recipient</p>
+            </div>
+            <div class="flex-grow h-1 bg-surface-container-low mx-md mt-2"></div>
+            <div class="text-center opacity-50">
+                <div class="w-10 h-10 bg-surface-container rounded-full flex items-center justify-center mx-auto font-bold">3</div>
+                <p class="font-label-md mt-sm">Fees</p>
+            </div>
+            <div class="flex-grow h-1 bg-surface-container-low mx-md mt-2"></div>
+            <div class="text-center opacity-50">
+                <div class="w-10 h-10 bg-surface-container rounded-full flex items-center justify-center mx-auto font-bold">4</div>
+                <p class="font-label-md mt-sm">Confirm</p>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="font-headline-lg text-headline-lg mb-xl">How much would you like to send?</h1>
+
+    <form method="post" action="{% url 'send_step1' %}" class="space-y-lg tonal-layer-1 p-xl rounded-xl">
+        {% csrf_token %}
+
+        <!-- Amount Input -->
+        <div>
+            <label for="id_send_amount" class="block font-label-md mb-sm">Send Amount</label>
+            <div class="flex gap-md items-center">
+                <input type="number" name="send_amount" id="id_send_amount" step="0.01" min="10" placeholder="0.00" 
+                    class="flex-grow px-md py-md border border-outline rounded-lg font-headline-md focus:outline-none focus:border-secondary" 
+                    oninput="calculateReceiveAmount()" />
+                <select name="send_currency" id="id_send_currency" onchange="calculateReceiveAmount()"
+                    class="px-md py-md border border-outline rounded-lg font-body-md focus:outline-none focus:border-secondary">
+                    <option value="GBP">GBP (£)</option>
+                    <option value="USD">USD ($)</option>
+                </select>
+            </div>
+            <p class="font-label-sm text-on-surface-variant mt-sm">Minimum £10 or $15</p>
+        </div>
+
+        <!-- Receive Currency -->
+        <div>
+            <label for="id_receive_currency" class="block font-label-md mb-sm">Recipient Gets</label>
+            <div class="flex gap-md items-center">
+                <div class="flex-grow px-md py-md border border-outline rounded-lg font-headline-md bg-surface-container">
+                    <span id="receive_amount">0</span> <span id="receive_currency">NGN</span>
+                </div>
+                <select name="receive_currency" id="id_receive_currency" onchange="calculateReceiveAmount()"
+                    class="px-md py-md border border-outline rounded-lg font-body-md focus:outline-none focus:border-secondary">
+                    <option value="NGN">NGN (₦)</option>
+                    <option value="GHS">GHS (₵)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Live Rate Display -->
+        <div class="bg-surface-container rounded-xl p-lg text-center">
+            <p class="font-label-md text-on-surface-variant mb-md">Live Exchange Rate</p>
+            <p class="font-display-lg text-headline-lg text-secondary" id="live_rate">1.00</p>
+            <p class="font-label-sm text-on-surface-variant mt-md" id="rate_updated">Loading rate…</p>
+        </div>
+
+        <!-- Recipient Type -->
+        <div>
+            <label class="block font-label-md mb-md">Who are you sending to?</label>
+            <div class="space-y-md">
+                <div class="flex items-center gap-md p-md border border-outline rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors">
+                    <input type="radio" name="recipient_type" value="person" id="recipient_person" checked class="w-4 h-4" />
+                    <label for="recipient_person" class="flex-grow cursor-pointer">
+                        <p class="font-label-md font-bold">Individual Person</p>
+                        <p class="font-label-sm text-on-surface-variant">Bank transfer to a personal account</p>
+                    </label>
+                </div>
+                <div class="flex items-center gap-md p-md border border-outline rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors">
+                    <input type="radio" name="recipient_type" value="institution" id="recipient_institution" class="w-4 h-4" />
+                    <label for="recipient_institution" class="flex-grow cursor-pointer">
+                        <p class="font-label-md font-bold">School / Hospital / Business</p>
+                        <p class="font-label-sm text-on-surface-variant">Select from our verified institutions</p>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex gap-md">
+            <a href="{% url 'dashboard' %}" class="btn-tertiary flex-1 text-center">Back</a>
+            <button type="submit" class="btn-secondary flex-1">Next Step →</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    async function calculateReceiveAmount() {
+        const sendAmount = parseFloat(document.getElementById('id_send_amount').value) || 0;
+        const sendCurrency = document.getElementById('id_send_currency').value;
+        const receiveCurrency = document.getElementById('id_receive_currency').value;
+        const rateEl = document.getElementById('live_rate');
+        const updatedEl = document.getElementById('rate_updated');
+
+        try {
+            const resp = await fetch(`{% url 'get_rate' %}?from=${sendCurrency}&to=${receiveCurrency}`);
+            const data = await resp.json();
+            if (!resp.ok) throw new Error(data.error || 'Rate unavailable');
+
+            const rate = parseFloat(data.rate);
+            document.getElementById('receive_amount').textContent = (sendAmount * rate).toFixed(2);
+            document.getElementById('receive_currency').textContent = receiveCurrency;
+            rateEl.textContent = rate.toFixed(2);
+            updatedEl.textContent = data.is_fallback ? 'Using estimated rate' : 'Live rate';
+        } catch (err) {
+            rateEl.textContent = '—';
+            updatedEl.textContent = err.message;
+        }
+    }
+
+    document.getElementById('id_send_currency').addEventListener('change', calculateReceiveAmount);
+    document.getElementById('id_receive_currency').addEventListener('change', calculateReceiveAmount);
+    document.getElementById('id_send_amount').addEventListener('input', calculateReceiveAmount);
+    calculateReceiveAmount();
+</script>
+{% endblock %}

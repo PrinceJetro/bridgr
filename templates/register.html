@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Register | Bridgr{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center px-lg py-xl">
+    <div class="w-full max-w-md">
+        <div class="text-center mb-xxl">
+            <h1 class="font-headline-lg text-headline-lg mb-md">Create Your Account</h1>
+            <p class="font-body-md text-on-surface-variant">Join millions sending money with confidence</p>
+        </div>
+
+        <form method="post" class="space-y-md tonal-layer-1 p-xl rounded-xl">
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+                <div class="p-md bg-error-container text-on-error-container rounded-lg">
+                    {% for error in form.non_field_errors %}
+                        <p class="font-body-sm">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Username -->
+            <div>
+                <label for="{{ form.username.id_for_label }}" class="block font-label-md mb-sm">Username</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <p class="text-error text-label-sm mt-xs">{{ form.username.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label for="{{ form.email.id_for_label }}" class="block font-label-md mb-sm">Email Address</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <p class="text-error text-label-sm mt-xs">{{ form.email.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Country -->
+            <div>
+                <label for="{{ form.country.id_for_label }}" class="block font-label-md mb-sm">Country</label>
+                {{ form.country }}
+                {% if form.country.errors %}
+                    <p class="text-error text-label-sm mt-xs">{{ form.country.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Phone -->
+            <div>
+                <label for="{{ form.phone_number.id_for_label }}" class="block font-label-md mb-sm">Phone Number</label>
+                {{ form.phone_number }}
+                {% if form.phone_number.errors %}
+                    <p class="text-error text-label-sm mt-xs">{{ form.phone_number.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label for="{{ form.password1.id_for_label }}" class="block font-label-md mb-sm">Password</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <p class="text-error text-label-sm mt-xs">{{ form.password1.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Confirm Password -->
+            <div>
+                <label for="{{ form.password2.id_for_label }}" class="block font-label-md mb-sm">Confirm Password</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <p class="text-error text-label-sm mt-xs">{{ form.password2.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn-secondary w-full mt-lg">Create Account</button>
+        </form>
+
+        <p class="text-center font-body-md text-on-surface-variant mt-lg">
+            Already have an account? <a href="/login/" class="text-secondary font-bold hover:underline">Login</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

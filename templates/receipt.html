@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Transfer Complete | Bridgr{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto py-xl px-lg">
+    <!-- Success Banner -->
+    <div class="mb-xl bg-secondary text-white p-lg rounded-xl text-center">
+        <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-md">
+            <span class="material-symbols-outlined text-5xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+        </div>
+        <h1 class="font-headline-lg text-headline-lg mb-md">Transfer Submitted!</h1>
+        <p class="font-body-md text-white/90">Your money is on its way. You'll receive updates as the transfer progresses.</p>
+    </div>
+
+    <!-- Receipt -->
+    <div class="tonal-layer-1 rounded-xl p-xl space-y-lg">
+        <!-- Transaction Reference -->
+        <div class="bg-surface-container rounded-lg p-lg text-center">
+            <p class="font-label-md text-on-surface-variant mb-sm">Transaction Reference</p>
+            <p class="font-display-lg text-headline-lg font-mono text-secondary">{{ transaction.reference|truncatechars:12 }}</p>
+            <button onclick="navigator.clipboard.writeText('{{ transaction.reference }}')" class="text-secondary font-label-md hover:underline mt-md">
+                Copy Reference
+            </button>
+        </div>
+
+        <!-- Transfer Details -->
+        <div class="space-y-md">
+            <!-- Amount -->
+            <div class="flex justify-between items-center py-md border-b border-outline-variant">
+                <span class="font-body-md text-on-surface-variant">Amount Sent</span>
+                <span class="font-headline-md">{{ transaction.send_amount }} {{ transaction.send_currency }}</span>
+            </div>
+
+            <!-- Received Amount -->
+            <div class="flex justify-between items-center py-md border-b border-outline-variant">
+                <span class="font-body-md text-on-surface-variant">Amount to Receive</span>
+                <span class="font-headline-md text-secondary">{{ transaction.receive_amount }} {{ transaction.receive_currency }}</span>
+            </div>
+
+            <!-- Exchange Rate -->
+            <div class="flex justify-between items-center py-md border-b border-outline-variant">
+                <span class="font-body-md text-on-surface-variant">Exchange Rate</span>
+                <span class="font-body-md">1 {{ transaction.send_currency }} = {{ transaction.exchange_rate }} {{ transaction.receive_currency }}</span>
+            </div>
+
+            <!-- Total Fee -->
+            <div class="flex justify-between items-center py-md border-b border-outline-variant">
+                <span class="font-body-md text-on-surface-variant">Total Fee</span>
+                <span class="font-body-md">{{ transaction.fee_amount }}</span>
+            </div>
+
+            <!-- Recipient -->
+            <div class="flex justify-between items-start py-md border-b border-outline-variant">
+                <span class="font-body-md text-on-surface-variant">Recipient</span>
+                <div class="text-right">
+                    <p class="font-body-md">
+                        {% if transaction.recipient_type == 'person' %}
+                            {{ transaction.recipient_name }}
+                        {% else %}
+                            {{ transaction.institution.name }}
+                        {% endif %}
+                    </p>
+                    {% if transaction.purpose %}
+                        <p class="font-label-sm text-on-surface-variant">{{ transaction.purpose }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div class="flex justify-between items-center py-md border-b border-outline-variant">
+                <span class="font-body-md text-on-surface-variant">Status</span>
+                <span class="px-md py-sm rounded-full text-label-sm font-label-md bg-secondary text-white">
+                    {{ transaction.get_status_display }}
+                </span>
+            </div>
+
+            <!-- Submitted Date -->
+            <div class="flex justify-between items-center py-md">
+                <span class="font-body-md text-on-surface-variant">Submitted</span>
+                <span class="font-body-md">{{ transaction.created_at|date:"F d, Y \a\t g:i A" }}</span>
+            </div>
+        </div>
+
+        <!-- Shield Badge -->
+        {% if transaction.shield_applied %}
+            <div class="bg-secondary/10 border-l-4 border-secondary p-lg rounded-lg">
+                <div class="flex gap-md items-start">
+                    <span class="material-symbols-outlined text-secondary flex-shrink-0">shield</span>
+                    <div>
+                        <p class="font-label-md font-bold text-secondary">Fair Fee Shield Applied</p>
+                        <p class="font-body-sm text-on-surface-variant">Your rate was locked at {{ transaction.rate_at_confirm }} to protect you from market volatility.</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Actions -->
+    <div class="mt-xl space-y-md">
+        <button onclick="window.print()" class="btn-tertiary w-full flex items-center justify-center gap-sm">
+            <span class="material-symbols-outlined">download</span>
+            Download Receipt
+        </button>
+        <div class="flex gap-md">
+            <a href="{% url 'send_step1' %}" class="btn-secondary flex-1 text-center">Send Another</a>
+            <a href="{% url 'dashboard' %}" class="btn-tertiary flex-1 text-center">Go to Dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

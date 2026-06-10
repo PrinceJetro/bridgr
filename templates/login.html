@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Login | Bridgr{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center px-lg py-xl">
+    <div class="w-full max-w-md">
+        <div class="text-center mb-xxl">
+            <h1 class="font-headline-lg text-headline-lg mb-md">Welcome Back</h1>
+            <p class="font-body-md text-on-surface-variant">Log in to your Bridgr account</p>
+        </div>
+
+        <form method="post" class="space-y-md tonal-layer-1 p-xl rounded-xl">
+            {% csrf_token %}
+            {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{ request.GET.next }}" />
+            {% endif %}
+
+            {% if form.non_field_errors %}
+                <div class="p-md bg-error-container text-on-error-container rounded-lg">
+                    {% for error in form.non_field_errors %}
+                        <p class="font-body-sm">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Username -->
+            <div>
+                <label for="id_username" class="block font-label-md mb-sm">Username</label>
+                <input type="text" name="username" id="id_username" required class="w-full px-md py-sm border border-outline rounded-lg font-body-md focus:outline-none focus:border-secondary" />
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label for="id_password" class="block font-label-md mb-sm">Password</label>
+                <input type="password" name="password" id="id_password" required class="w-full px-md py-sm border border-outline rounded-lg font-body-md focus:outline-none focus:border-secondary" />
+            </div>
+
+            <button type="submit" class="btn-secondary w-full mt-lg">Login</button>
+        </form>
+
+        <p class="text-center font-body-md text-on-surface-variant mt-lg">
+            Don't have an account? <a href="{% url 'register' %}" class="text-secondary font-bold hover:underline">Sign up</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

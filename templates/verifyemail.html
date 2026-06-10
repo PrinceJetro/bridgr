@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Verify Email | Bridgr{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center px-lg py-xl">
+    <div class="w-full max-w-md text-center">
+        <div class="w-16 h-16 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-xl">
+            <span class="material-symbols-outlined text-4xl">mail</span>
+        </div>
+
+        <h1 class="font-headline-lg text-headline-lg mb-md">Check Your Email</h1>
+        
+        <p class="font-body-md text-on-surface-variant mb-lg">
+            We've sent a verification link to your email address. Click the link to verify your account and get started.
+        </p>
+
+        <div class="tonal-layer-1 p-lg rounded-xl mb-lg">
+            <p class="font-body-sm text-on-surface-variant mb-md">
+                <strong>Didn't receive the email?</strong>
+            </p>
+            <button type="button" onclick="alert('TODO: Implement resend email')" class="btn-tertiary w-full">
+                Resend Verification Email
+            </button>
+        </div>
+
+        <a href="/" class="text-secondary font-label-md hover:underline">Back to Home</a>
+    </div>
+</div>
+{% endblock %}

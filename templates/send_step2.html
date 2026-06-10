@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Send Money - Step 2 | Bridgr{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto py-xl px-lg">
+    <!-- Progress Bar -->
+    <div class="mb-xxl">
+        <div class="flex justify-between items-center mb-lg">
+            <div class="text-center opacity-50">
+                <div class="w-10 h-10 bg-surface-container rounded-full flex items-center justify-center mx-auto font-bold">✓</div>
+                <p class="font-label-md mt-sm">Amount</p>
+            </div>
+            <div class="flex-grow h-1 bg-surface-container-low mx-md mt-2"></div>
+            <div class="text-center">
+                <div class="w-10 h-10 bg-secondary text-white rounded-full flex items-center justify-center mx-auto font-bold">2</div>
+                <p class="font-label-md mt-sm">Recipient</p>
+            </div>
+            <div class="flex-grow h-1 bg-surface-container-low mx-md mt-2"></div>
+            <div class="text-center opacity-50">
+                <div class="w-10 h-10 bg-surface-container rounded-full flex items-center justify-center mx-auto font-bold">3</div>
+                <p class="font-label-md mt-sm">Fees</p>
+            </div>
+            <div class="flex-grow h-1 bg-surface-container-low mx-md mt-2"></div>
+            <div class="text-center opacity-50">
+                <div class="w-10 h-10 bg-surface-container rounded-full flex items-center justify-center mx-auto font-bold">4</div>
+                <p class="font-label-md mt-sm">Confirm</p>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="font-headline-lg text-headline-lg mb-xl">Who are you sending to?</h1>
+
+    <form method="post" action="{% url 'send_step2' %}" class="space-y-lg">
+        {% csrf_token %}
+        
+        {% if recipient_type == 'institution' %}
+            <!-- Institution Selection -->
+            <div class="tonal-layer-1 p-xl rounded-xl space-y-md">
+                <label for="id_institution" class="block font-label-md mb-md">Select Institution</label>
+                <select name="institution" id="id_institution" required class="w-full px-md py-md border border-outline rounded-lg font-body-md focus:outline-none focus:border-secondary">
+                    <option value="">-- Choose an institution --</option>
+                    {% for inst in institutions %}
+                        <option value="{{ inst.id }}">{{ inst.name }} ({{ inst.get_category_display }}, {{ inst.get_country_display }})</option>
+                    {% endfor %}
+                </select>
+
+                <div>
+                    <label for="id_purpose" class="block font-label-md mb-sm">Purpose of Payment</label>
+                    <input type="text" name="purpose" id="id_purpose" placeholder="e.g. Tuition Fee, Medical Treatment" 
+                        class="w-full px-md py-md border border-outline rounded-lg font-body-md focus:outline-none focus:border-secondary" />
+                </div>
+            </div>
+        {% else %}
+            <!-- Person Details -->
+            <div class="tonal-layer-1 p-xl rounded-xl space-y-md">
+                <div>
+                    <label for="id_recipient_name" class="block font-label-md mb-sm">Recipient Name</label>
+                    <input type="text" name="recipient_name" id="id_recipient_name" required placeholder="Full name"
+                        class="w-full px-md py-md border border-outline rounded-lg font-body-md focus:outline-none focus:border-secondary" />
+                </div>
+
+                <div>
+                    <label for="id_recipient_email" class="block font-label-md mb-sm">Recipient Email (Optional)</label>
+                    <input type="email" name="recipient_email" id="id_recipient_email" placeholder="recipient@example.com"
+                        class="w-full px-md py-md border border-outline rounded-lg font-body-md focus:outline-none focus:border-secondary" />
+                </div>
+
+                <div>
+                    <label for="id_recipient_bank" class="block font-label-md mb-sm">Bank Name</label>
+                    <input type="text" name="recipient_bank" id="id_recipient_bank" required placeholder="e.g. Access Bank"
+                        class="w-full px-md py-md border border-outline rounded-lg font-body-md focus:outline-none focus:border-secondary" />
+                </div>
+
+                <div>
+                    <label for="id_recipient_account" class="block font-label-md mb-sm">Account Number</label>
+                    <input type="text" name="recipient_account" id="id_recipient_account" required placeholder="e.g. 1234567890"
+                        class="w-full px-md py-md border border-outline rounded-lg font-body-md focus:outline-none focus:border-secondary" />
+                </div>
+
+                <div>
+                    <label for="id_purpose" class="block font-label-md mb-sm">Purpose of Payment</label>
+                    <input type="text" name="purpose" id="id_purpose" placeholder="e.g. Personal gift, Business payment"
+                        class="w-full px-md py-md border border-outline rounded-lg font-body-md focus:outline-none focus:border-secondary" />
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="flex gap-md">
+            <a href="{% url 'send_step1' %}" class="btn-tertiary flex-1 text-center">← Back</a>
+            <button type="submit" class="btn-secondary flex-1">Next Step →</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

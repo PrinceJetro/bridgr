@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="py-xxl px-lg bg-surface-container-low min-h-[70vh]">
+  <div class="max-w-5xl mx-auto">
+    <div class="mb-xxl">
+      <p class="font-label-sm text-secondary uppercase tracking-[0.2em] mb-md">{{ page_title }}</p>
+      <h1 class="font-display-lg text-headline-lg text-primary-container mb-md">{{ heading }}</h1>
+      <p class="font-body-lg text-on-primary-container leading-relaxed">{{ message }}</p>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-md">
+      <a href="/" class="inline-flex items-center justify-center rounded-xl bg-primary-container text-white px-xl py-md font-label-md hover:opacity-90 transition-all">Return home</a>
+      <a href="/contact/" class="inline-flex items-center justify-center rounded-xl border border-outline-variant text-primary-container px-xl py-md font-label-md hover:bg-surface-container-high transition-all">Contact support</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
